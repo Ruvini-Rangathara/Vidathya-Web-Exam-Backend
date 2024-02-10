@@ -1,6 +1,5 @@
 package lk.vidathya.examservice.service;
 
-
 import lk.vidathya.examservice.dto.PaperDTO;
 
 public interface PaperService {
