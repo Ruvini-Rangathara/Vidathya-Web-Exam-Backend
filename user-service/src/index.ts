@@ -31,4 +31,4 @@ app.listen(port, async () => {
 });
 
 
-app.use('/user', UserRoutes);
+app.use('/api/v1/user', UserRoutes);

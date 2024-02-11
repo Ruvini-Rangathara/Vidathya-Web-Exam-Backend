@@ -9,14 +9,13 @@ import {Request, Response} from "express";
 import {Model} from "sequelize";
 
 interface AuthRequestBody {
-    username: string;
+    email: string;
     password: string;
 }
 
 export const getAllUsers = async (req: Request, res: Response) => {
     try {
         let users = await User.findAll();
-        console.log(JSON.stringify(users))
         res.status(200).send(
             new CustomResponse(200, "Users are found successfully", users)
         );
@@ -28,8 +27,6 @@ export const getAllUsers = async (req: Request, res: Response) => {
 export const createNewUser = async (req: express.Request, res: express.Response) => {
     try {
         const req_body: any = req.body;
-        console.log("req_body:", JSON.stringify(req_body));
-
         await bcrypt.hash(req_body.password, 8, async function (err, hash) {
             if (err) {
                 return res.status(500).send(
@@ -43,7 +40,6 @@ export const createNewUser = async (req: express.Request, res: express.Response)
                     password: hash,
                     role: req_body.role
                 });
-                console.log("New user created:", newUser);
 
                 return res.status(200).send(
                     new CustomResponse(200, "User created successfully", newUser)
@@ -108,11 +104,9 @@ export const authUser = async (req: Request, res: Response) => {
 export const deleteUser = async (req: Request, res: Response) => {
     try {
         const token = req.headers.authorization?.split(' ')[1]; // Assuming token is sent in the format "Bearer <token>"
-        console.log("token:", token);
 
         const decoded: any = jwt.decode(token!);
         const userId = decoded.user.email;
-        console.log("userId:", userId);
 
         try {
             await User.destroy({ where: { email: userId } });
@@ -129,14 +123,11 @@ export const deleteUser = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
     try {
-        console.log("===================================================================================");
-
         const token = req.headers.authorization?.split(' ')[1]; // Assuming token is sent in the
         const decoded: any = jwt.decode(token!);
         const userId = decoded.user.email;
 
         const req_body: any = req.body;
-        console.log("req_body:", JSON.stringify(req_body));
 
         try {
             await User.update(req_body, { where: { email: userId } });
@@ -159,7 +150,6 @@ export const searchUser = async (req: Request, res: Response) => {
         const userId = decoded.user.email;
 
         const users = await User.findAll({ where: { email: userId } });
-        console.log("users:", JSON.stringify(users));
 
         return res.status(200).send(new CustomResponse(200, "Users are found successfully", users));
     } catch (error) {
