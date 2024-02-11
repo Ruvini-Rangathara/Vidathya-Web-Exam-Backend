@@ -1,5 +1,3 @@
-//use mysql database to store user data. user data is email, password, and role
-
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../middleware/sequelize';
 
