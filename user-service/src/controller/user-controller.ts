@@ -15,7 +15,16 @@ interface AuthRequestBody {
 
 export const getAllUsers = async (req: Request, res: Response) => {
     try {
-        let users = await User.findAll();
+        const { role } = req.query;
+        console.log("role : ",role)
+        let  users = await User.findAll({
+            where: {
+                role: role
+            }
+        });
+
+        console.log("users : ",users)
+
         res.status(200).send(
             new CustomResponse(200, "Users are found successfully", users)
         );
@@ -62,9 +71,15 @@ export const authUser = async (req: Request, res: Response) => {
         const {email, password}: AuthRequestBody = req.body;
         const user: Model<any> | null = await UserModel.findOne({where: {email}});
 
+        console.log("user : ",req.body)
+
         if (user) {
             const p = user.get('password');
+            console.log("p : ",p)
+            console.log("password : ",password);
+
             const isMatch = await bcrypt.compare(password, p as string);
+            // const isMatch = (password === p as string);
 
             if (isMatch) {
                 console.log("Password matched");
@@ -85,10 +100,12 @@ export const authUser = async (req: Request, res: Response) => {
                     return res.status(200).send(new CustomResponse(200, "Access", responseData));
                 });
             } else {
+                console.log("Password not matched");
                 // If passwords don't match, send invalid credentials error response
                 return res.status(401).send(new CustomResponse(401, "Invalid credentials"));
             }
         } else {
+            console.log("User not found");
             // If user is not found, send user not found error response
             return res.status(404).send(new CustomResponse(404, "User not found"));
         }
