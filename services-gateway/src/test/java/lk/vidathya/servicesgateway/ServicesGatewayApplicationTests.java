@@ -1,10 +1,10 @@
-package lk.vidathya.examservice;
+package lk.vidathya.servicesgateway;
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ExamServiceApplicationTests {
+class ServicesGatewayApplicationTests {
 
     @Test
     void contextLoads() {

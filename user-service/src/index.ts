@@ -6,6 +6,7 @@ import sequelize from "./middleware/sequelize";
 import process from 'process';
 import UserRoutes from './route/user-route';
 import bodyParser from 'body-parser'; // Import body-parser
+import eurekaClient from '././middleware/eureka-client';
 
 
 const app = express();
@@ -29,6 +30,17 @@ app.listen(port, async () => {
         console.error('Unable to connect to the database:', error);
     }
 });
+
+// Register with Eureka server
+// eurekaClient.start((error: Error) => {
+//     console.log("=====================================================================")
+//     console.log(JSON.stringify(eurekaClient))
+//     if (error) {
+//         console.log('Error registering with Eureka:', error);
+//     } else {
+//         console.log('Registered with Eureka successfully');
+//     }
+// });
 
 
 app.use('/api/v1/user', UserRoutes);

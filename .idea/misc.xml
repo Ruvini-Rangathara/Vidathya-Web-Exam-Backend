@@ -6,7 +6,14 @@
       <list>
         <option value="$PROJECT_DIR$/exam-service/pom.xml" />
         <option value="$PROJECT_DIR$/services-registry/pom.xml" />
+        <option value="$PROJECT_DIR$/service-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/services-gateway/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/service-gateway/pom.xml" />
+      </set>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>

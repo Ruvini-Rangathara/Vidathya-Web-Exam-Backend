@@ -33,14 +33,12 @@ export const createNewUser = async (req: express.Request, res: express.Response)
                     new CustomResponse(500, "Something went wrong.")
                 );
             }
-
             try {
                 const newUser = await User.create({
                     email: req_body.email,
                     password: hash,
                     role: req_body.role
                 });
-
                 return res.status(200).send(
                     new CustomResponse(200, "User created successfully", newUser)
                 );
@@ -124,7 +122,9 @@ export const deleteUser = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
     try {
         const token = req.headers.authorization?.split(' ')[1]; // Assuming token is sent in the
+        console.log("token : ",token)
         const decoded: any = jwt.decode(token!);
+        console.log(decoded.user.email)
         const userId = decoded.user.email;
 
         const req_body: any = req.body;

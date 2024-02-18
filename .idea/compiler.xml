@@ -8,13 +8,19 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="services-registry" />
+        <module name="services-gateway" />
         <module name="exam-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="service-gateway" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="exam-service" options="-parameters" />
+      <module name="service-gateway" options="-parameters" />
+      <module name="services-gateway" options="-parameters" />
       <module name="services-registry" options="-parameters" />
     </option>
   </component>

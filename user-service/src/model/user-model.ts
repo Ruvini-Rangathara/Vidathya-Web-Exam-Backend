@@ -14,6 +14,14 @@ const User = sequelize.define('user', {
         type: DataTypes.ENUM('student', 'teacher'),
         allowNull: false,
         defaultValue: 'student'
+    },
+    name:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    nic:{
+        type: DataTypes.STRING,
+        allowNull: true
     }
 });
 
