@@ -13,4 +13,6 @@ public class MyExamDTO {
     private int paperId;
     private String nic;
     private double score;
+    private String title;
+    private int time;
 }

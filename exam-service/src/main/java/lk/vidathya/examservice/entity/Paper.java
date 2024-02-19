@@ -1,5 +1,6 @@
 package lk.vidathya.examservice.entity;
 
+import lk.vidathya.examservice.dto.QuestionDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,8 @@ public class Paper {
     private String title;
     private String description;
     private String subject;
-    private String time;
+    private int time;
     private String nic;
+
+    private QuestionDTO[] questions;
 }

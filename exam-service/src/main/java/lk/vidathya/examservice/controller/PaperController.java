@@ -20,7 +20,12 @@ public class PaperController {
 
     @PostMapping(value = "/add")
     public ResponseDTO addPaper(@RequestBody PaperDTO paperDTO) {
+        System.out.println("Paper : "+paperDTO.toString());
+
         String result = paperService.addPaper(paperDTO);
+
+        System.out.println("Result : "+result);
+
         if (result.equals("00")) {
             responseDTO.setCode("00");
             responseDTO.setMessage("Paper added successfully");

@@ -12,6 +12,8 @@ public class PaperDTO {
     private String title;
     private String description;
     private String subject;
-    private String time;
+    private int time;
     private String nic;
+
+    private QuestionDTO[] questions;
 }

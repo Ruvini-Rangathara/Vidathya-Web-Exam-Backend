@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api/v1/myexam")
 @RequiredArgsConstructor
 public class MyExamController {
-
     private final MyExamService myExamService;
 
     @Autowired
@@ -22,6 +21,8 @@ public class MyExamController {
     public ResponseDTO addMyExam(@RequestBody MyExamDTO myExamDTO) {
         String result = myExamService.addMyExam(myExamDTO);
         if (result.equals("00")) {
+
+
             responseDTO.setCode("00");
             responseDTO.setMessage("My Exam added successfully");
             responseDTO.setContent(myExamDTO);
