@@ -8,12 +8,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Document(collection = "paper")
-public class Paper {
+@Document(collection = "my_exam")
+public class MyExam {
     private int id;
-    private String title;
-    private String description;
-    private String subject;
-    private String time;
+    private int paperId;
     private String nic;
+    private double score;
 }
+
