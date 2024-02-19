@@ -9,7 +9,7 @@ import {Request, Response} from "express";
 import {Model} from "sequelize";
 
 interface AuthRequestBody {
-    email: string;
+    nic: string;
     password: string;
 }
 
@@ -44,7 +44,7 @@ export const createNewUser = async (req: express.Request, res: express.Response)
             }
             try {
                 const newUser = await User.create({
-                    email: req_body.email,
+                    nic: req_body.nic,
                     password: hash,
                     role: req_body.role
                 });
@@ -68,8 +68,8 @@ export const createNewUser = async (req: express.Request, res: express.Response)
 // Login
 export const authUser = async (req: Request, res: Response) => {
     try {
-        const {email, password}: AuthRequestBody = req.body;
-        const user: Model<any> | null = await UserModel.findOne({where: {email}});
+        const {nic, password}: AuthRequestBody = req.body;
+        const user: Model<any> | null = await UserModel.findOne({where: {nic}});
 
         console.log("user : ",req.body)
 
@@ -121,10 +121,10 @@ export const deleteUser = async (req: Request, res: Response) => {
         const token = req.headers.authorization?.split(' ')[1]; // Assuming token is sent in the format "Bearer <token>"
 
         const decoded: any = jwt.decode(token!);
-        const userId = decoded.user.email;
+        const nic = decoded.user.nic;
 
         try {
-            await User.destroy({ where: { email: userId } });
+            await User.destroy({ where: { nic: nic } });
             return res.status(200).send(new CustomResponse(200, "User deleted successfully"));
         } catch (error) {
             console.error("Error deleting user:", error);
@@ -137,36 +137,59 @@ export const deleteUser = async (req: Request, res: Response) => {
 };
 
 export const updateUser = async (req: Request, res: Response) => {
-    try {
-        const token = req.headers.authorization?.split(' ')[1]; // Assuming token is sent in the
-        console.log("token : ",token)
-        const decoded: any = jwt.decode(token!);
-        console.log(decoded.user.email)
-        const userId = decoded.user.email;
-
-        const req_body: any = req.body;
+    console.log("req : ",req.body)
+    const req_body: any = req.body;
+    await bcrypt.hash(req_body.password, 8, async function (err, hash) {
+        if (err) {
+            return res.status(500).send(
+                new CustomResponse(500, "Something went wrong.")
+            );
+        }
 
         try {
-            await User.update(req_body, { where: { email: userId } });
-            return res.status(200).send(new CustomResponse(200, "User updated successfully"));
-        } catch (error) {
-            console.error("Error updating user:", error);
-            return res.status(500).send(new CustomResponse(500, "Failed to update user"));
-        }
-    } catch (error) {
-        console.error("Error:", error);
-        return res.status(500).send(new CustomResponse(500, "Error"));
+            const token = req.headers.authorization?.split(' ')[1]; // Assuming token is sent in the
+            console.log("token : ",token)
+            const decoded: any = jwt.decode(token!);
+            console.log(decoded.user.nic)
+            const nic = decoded.user.nic;
 
-    }
+            const req_body: any = req.body;
+            const user = {
+                id: req_body.id,
+                email: req_body.email,
+                password: hash,
+                role: req_body.role,
+                name: req_body.name,
+                nic: nic
+            };
+
+
+            try {
+                await User.update(user, { where: { nic: req_body.nic } });
+                return res.status(200).send(new CustomResponse(200, "User updated successfully"));
+            } catch (error) {
+                console.error("Error updating user:", error);
+                return res.status(500).send(new CustomResponse(500, "Failed to update user"));
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            return res.status(500).send(new CustomResponse(500, "Error"));
+
+        }
+    });
+
+
+
 }
 
 export const searchUser = async (req: Request, res: Response) => {
     try {
         const token = req.headers.authorization?.split(' ')[1]; // Assuming token is sent in the
         const decoded: any = jwt.decode(token!);
-        const userId = decoded.user.email;
+        const nic = decoded.user.nic;
 
-        const users = await User.findAll({ where: { email: userId } });
+        let users  = await User.findAll({ where: { nic: nic } });
+        console.log("users : ",JSON.stringify(users))
 
         return res.status(200).send(new CustomResponse(200, "Users are found successfully", users));
     } catch (error) {

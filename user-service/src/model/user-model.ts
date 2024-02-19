@@ -2,9 +2,14 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../middleware/sequelize';
 
 const User = sequelize.define('user', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        unique: true
+    },
     email: {
         type: DataTypes.STRING,
-        primaryKey: true,
+        allowNull: true,
     },
     password: {
         type: DataTypes.STRING,
@@ -21,7 +26,8 @@ const User = sequelize.define('user', {
     },
     nic:{
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        primaryKey: true
     }
 });
 
