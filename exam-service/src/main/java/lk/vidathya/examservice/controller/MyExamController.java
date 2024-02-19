@@ -74,4 +74,21 @@ public class MyExamController {
         return responseDTO;
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
+    @GetMapping(value = "/count/{nic}")
+    public ResponseDTO countMyExams(@PathVariable String nic) {
+        long count = myExamService.countPaperByNic(nic);
+        if (count > 0) {
+            responseDTO.setCode("00");
+            responseDTO.setMessage("My Exam found");
+            responseDTO.setContent(count);
+        } else {
+            responseDTO.setCode("02");
+            responseDTO.setMessage("Error");
+            responseDTO.setContent(0);
+        }
+        return responseDTO;
+    }
+
+
 }

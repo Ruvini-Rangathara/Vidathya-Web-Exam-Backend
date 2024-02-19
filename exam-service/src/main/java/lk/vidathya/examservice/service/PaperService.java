@@ -8,4 +8,5 @@ public interface PaperService {
     String deletePaper(int id);
     String updatePaper(PaperDTO paperDTO);
     PaperDTO[] getAllPapers();
+    long countPapers();
 }

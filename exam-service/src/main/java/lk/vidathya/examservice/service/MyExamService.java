@@ -7,5 +7,6 @@ public interface MyExamService {
     MyExamDTO searchMyExam(int paperId, String nic);
     MyExamDTO[] getMyAllExams(String nic);
     boolean existsByPaperIdAndNic(int paperId, String nic);
+    long countPaperByNic(String nic);
 
 }

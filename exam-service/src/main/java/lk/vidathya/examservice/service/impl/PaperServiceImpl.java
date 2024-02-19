@@ -68,4 +68,9 @@ public class PaperServiceImpl implements PaperService{
             return null;
         }
     }
+
+    @Override
+    public long countPapers() {
+        return paperDAO.count();
+    }
 }

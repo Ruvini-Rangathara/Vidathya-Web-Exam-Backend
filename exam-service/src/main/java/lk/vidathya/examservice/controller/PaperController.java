@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:63342")
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping(value = "/api/v1/paper")
 @RequiredArgsConstructor
@@ -102,6 +102,15 @@ public class PaperController {
         return responseDTO;
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
+    @GetMapping(value = "/count")
+    public ResponseDTO countPapers() {
+        long count = paperService.countPapers();
+        responseDTO.setCode("00");
+        responseDTO.setMessage("Papers count");
+        responseDTO.setContent(count);
+        return responseDTO;
+    }
 
 
 

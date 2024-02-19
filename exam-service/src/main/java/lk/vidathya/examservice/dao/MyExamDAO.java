@@ -12,4 +12,6 @@ public interface MyExamDAO extends MongoRepository<MyExam, Integer> {
     List<MyExam> findAllByNic(String nic);
 
     MyExam findByPaperIdAndNic(int paperId, String nic);
+
+    long countPaperByNic(String nic);
 }

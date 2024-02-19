@@ -64,5 +64,14 @@ public class MyExamServiceImpl implements MyExamService {
         }
     }
 
+    @Override
+    public long countPaperByNic(String nic) {
+        try{
+            return myExamDAO.countPaperByNic(nic);
+        }catch (Exception e){
+            return 0;
+        }
+    }
+
 
 }
