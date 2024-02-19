@@ -29,6 +29,7 @@ public class MyExamServiceImpl implements MyExamService {
                 return Responses.RSP_SUCCESS;
             }
         }catch (Exception e) {
+            System.out.println(e.getMessage() );
             return Responses.RSP_ERROR;
         }
     }

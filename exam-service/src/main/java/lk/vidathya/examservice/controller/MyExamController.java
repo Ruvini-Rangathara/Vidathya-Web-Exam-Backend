@@ -1,7 +1,6 @@
 package lk.vidathya.examservice.controller;
 
 import lk.vidathya.examservice.dto.MyExamDTO;
-import lk.vidathya.examservice.dto.PaperDTO;
 import lk.vidathya.examservice.dto.ResponseDTO;
 import lk.vidathya.examservice.service.MyExamService;
 import lombok.RequiredArgsConstructor;
