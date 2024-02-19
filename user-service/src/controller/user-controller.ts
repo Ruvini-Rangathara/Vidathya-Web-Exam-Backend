@@ -15,21 +15,37 @@ interface AuthRequestBody {
 
 export const getAllUsers = async (req: Request, res: Response) => {
     try {
-        const { role } = req.query;
-        console.log("role : ",role)
+        console.log("role : ",req.params.role)
+        const role = req.params.role;
         let  users = await User.findAll({
             where: {
                 role: role
             }
         });
-
-        console.log("users : ",users)
-
         res.status(200).send(
             new CustomResponse(200, "Users are found successfully", users)
         );
     } catch (error) {
         res.status(100).send("Error")
+    }
+}
+
+export const getCountByRole = async (req: Request, res: Response) => {
+    try {
+        const { role } = req.params;
+        console.log("role : ", role);
+        const count = await User.count({
+            where: {
+                role: role
+            }
+        });
+        console.log("count : ", count);
+        res.status(200).send(
+            new CustomResponse(200, "Users are found successfully", count)
+        );
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send("Error");
     }
 }
 

@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:63342")
+import java.util.Arrays;
+
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping(value = "/api/v1/myexam")
 @RequiredArgsConstructor
@@ -17,12 +19,14 @@ public class MyExamController {
     @Autowired
     private ResponseDTO responseDTO;
 
+    @CrossOrigin(origins = "http://localhost:63342")
     @PostMapping(value = "/add")
     public ResponseDTO addMyExam(@RequestBody MyExamDTO myExamDTO) {
         String result = myExamService.addMyExam(myExamDTO);
+
+        System.out.println("result : "+result);
+
         if (result.equals("00")) {
-
-
             responseDTO.setCode("00");
             responseDTO.setMessage("My Exam added successfully");
             responseDTO.setContent(myExamDTO);
@@ -38,6 +42,7 @@ public class MyExamController {
         return responseDTO;
     }
 
+    @CrossOrigin(origins = "http://localhost:63342")
     @GetMapping(value = "/get/{paperId}/{nic}")
     public ResponseDTO searchPaper(@PathVariable int paperId, @PathVariable String nic) {
         MyExamDTO myExamDTO = myExamService.searchMyExam(paperId, nic);
@@ -53,6 +58,7 @@ public class MyExamController {
         return responseDTO;
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping(value = "/getAll/{nic}")
     public ResponseDTO getAllMyExams(@PathVariable String nic) {
         MyExamDTO[] myExamDTOS = myExamService.getMyAllExams(nic);

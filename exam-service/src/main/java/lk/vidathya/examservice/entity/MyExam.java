@@ -14,5 +14,7 @@ public class MyExam {
     private int paperId;
     private String nic;
     private double score;
+    private String subject;
+    private int time;
 }
 
