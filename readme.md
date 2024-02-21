@@ -46,6 +46,21 @@ Welcome to the Vidathya Higher Education Center Exam Web Application backend pro
 - **MySQL**: Stores user data.
 - **MongoDB**: Stores exam data.
 
+## Tech Stack 
+
+- **Spring Boot**: Backend framework.
+- **Node.js**: JavaScript runtime.
+- **Express.js**: Web application framework.
+- **MySQL**: Relational database.
+- **MongoDB**: NoSQL database.
+- **JWT**: Authentication.
+- **Maven**: Dependency management.
+- **Git**: Version control.
+- **GitHub**: Repository hosting.
+- **Postman**: API testing.
+- **IntelliJ IDEA**: IDE.
+    - 
+
 ## Usage
 
 1. Clone the backend repository:
