@@ -9,4 +9,5 @@ public interface MyExamService {
     boolean existsByPaperIdAndNic(int paperId, String nic);
     long countPaperByNic(String nic);
 
+
 }

@@ -10,7 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @Document(collection = "my_exam")
 public class MyExam {
-    private int id;
+
+    private long id;
     private int paperId;
     private String nic;
     private double score;

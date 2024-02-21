@@ -13,21 +13,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class PaperServiceImpl implements PaperService{
+public class PaperServiceImpl implements PaperService {
 
     private final PaperDAO paperDAO;
     private final ModelMapper modelMapper;
 
     @Override
     public String addPaper(PaperDTO paperDTO) {
-        try{
-            if(paperDAO.existsById(paperDTO.getId())){
-                return Responses.RSP_DUPLICATE;
-            }else{
-                Paper save = paperDAO.save(modelMapper.map(paperDTO, Paper.class));
-                return Responses.RSP_SUCCESS;
-            }
-        }catch (Exception e) {
+        long count = paperDAO.count();
+        paperDTO.setId(count + 1);
+        try {
+            Paper save = paperDAO.save(modelMapper.map(paperDTO, Paper.class));
+            return Responses.RSP_SUCCESS;
+        } catch (Exception e) {
             return Responses.RSP_ERROR;
         }
     }
@@ -42,29 +40,29 @@ public class PaperServiceImpl implements PaperService{
 
     @Override
     public String deletePaper(int id) {
-        if (paperDAO.existsById(id)){
+        if (paperDAO.existsById(id)) {
             paperDAO.deleteById(id);
             return Responses.RSP_SUCCESS;
-        }else{
+        } else {
             return Responses.RSP_NOT_FOUND;
         }
     }
 
     @Override
     public String updatePaper(PaperDTO paperDTO) {
-        if (paperDAO.existsById(paperDTO.getId())){
+        if (paperDAO.existsById((int) paperDTO.getId())) {
             paperDAO.save(modelMapper.map(paperDTO, Paper.class));
             return Responses.RSP_SUCCESS;
-        }else{
+        } else {
             return Responses.RSP_NOT_FOUND;
         }
     }
 
     @Override
     public PaperDTO[] getAllPapers() {
-        try{
+        try {
             return modelMapper.map(paperDAO.findAll(), PaperDTO[].class);
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }

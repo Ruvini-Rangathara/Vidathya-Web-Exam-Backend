@@ -23,10 +23,8 @@ public class MyExamController {
     @PostMapping(value = "/add")
     public ResponseDTO addMyExam(@RequestBody MyExamDTO myExamDTO) {
         String result = myExamService.addMyExam(myExamDTO);
-
-        System.out.println("result : "+result);
-
         if (result.equals("00")) {
+            System.out.println("result : "+result);
             responseDTO.setCode("00");
             responseDTO.setMessage("My Exam added successfully");
             responseDTO.setContent(myExamDTO);

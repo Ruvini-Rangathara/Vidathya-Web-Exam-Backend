@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @Document(collection = "paper")
 public class Paper {
-    private int id;
+    private long id;
     private String title;
     private String description;
     private String subject;

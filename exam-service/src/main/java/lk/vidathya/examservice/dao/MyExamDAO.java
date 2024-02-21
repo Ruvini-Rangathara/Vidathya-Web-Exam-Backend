@@ -10,8 +10,6 @@ import java.util.List;
 public interface MyExamDAO extends MongoRepository<MyExam, Integer> {
     boolean existsByPaperIdAndNic(int paperId, String nic);
     List<MyExam> findAllByNic(String nic);
-
     MyExam findByPaperIdAndNic(int paperId, String nic);
-
     long countPaperByNic(String nic);
 }

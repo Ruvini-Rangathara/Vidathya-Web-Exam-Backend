@@ -19,7 +19,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
         const role = req.params.role;
         let  users = await User.findAll({
             where: {
-                role: role
+                role: 'teacher'
             }
         });
         res.status(200).send(

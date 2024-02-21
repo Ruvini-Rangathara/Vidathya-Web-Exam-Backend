@@ -20,55 +20,54 @@ public class MyExamServiceImpl implements MyExamService {
 
     @Override
     public String addMyExam(MyExamDTO myExamDTO) {
-        try{
-            if(myExamDAO.existsByPaperIdAndNic(myExamDTO.getPaperId(), myExamDTO.getNic())){
-                return Responses.RSP_DUPLICATE;
-            }else{
-                MyExam save = myExamDAO.save(modelMapper.map(myExamDTO, MyExam.class));
-                return Responses.RSP_SUCCESS;
-            }
-        }catch (Exception e) {
-            System.out.println(e.getMessage() );
+        long count = myExamDAO.count();
+        myExamDTO.setId(count + 1);
+        try {
+            myExamDAO.save(modelMapper.map(myExamDTO, MyExam.class));
+            return Responses.RSP_SUCCESS;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             return Responses.RSP_ERROR;
         }
     }
 
     @Override
     public MyExamDTO searchMyExam(int paperId, String nic) {
-        try{
-            if(myExamDAO.existsByPaperIdAndNic(paperId, nic)){
+        try {
+            if (myExamDAO.existsByPaperIdAndNic(paperId, nic)) {
                 return modelMapper.map(myExamDAO.findByPaperIdAndNic(paperId, nic), MyExamDTO.class);
-            }else{
+            } else {
                 return null;
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             return null;
         }
     }
 
     @Override
     public MyExamDTO[] getMyAllExams(String nic) {
-        try{
+        try {
             return modelMapper.map(myExamDAO.findAllByNic(nic), MyExamDTO[].class);
-        }catch (Exception e) {
+        } catch (Exception e) {
             return null;
         }
     }
 
     @Override
     public boolean existsByPaperIdAndNic(int paperId, String nic) {
-        try{
+        try {
             return myExamDAO.existsByPaperIdAndNic(paperId, nic);
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
     @Override
     public long countPaperByNic(String nic) {
-        try{
+        try {
             return myExamDAO.countPaperByNic(nic);
-        }catch (Exception e){
+        } catch (Exception e) {
             return 0;
         }
     }

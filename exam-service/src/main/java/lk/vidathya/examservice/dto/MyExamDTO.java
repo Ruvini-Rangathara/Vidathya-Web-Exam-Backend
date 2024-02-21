@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class MyExamDTO {
-    private int id;
+    private long id;
     private int paperId;
     private String nic;
     private double score;
