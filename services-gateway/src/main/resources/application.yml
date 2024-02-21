@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+
+        - id: userService
+          uri: http://localhost:9091/api/v1/user
+          predicates:
+            - Path=/user/**
+
+        - id: examService
+          uri: http://localhost:9090/exam
+          predicates:
+            - Path=/exam/**
+

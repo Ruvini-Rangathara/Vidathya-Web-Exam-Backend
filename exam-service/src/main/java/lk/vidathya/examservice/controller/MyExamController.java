@@ -19,7 +19,7 @@ public class MyExamController {
     @Autowired
     private ResponseDTO responseDTO;
 
-    @CrossOrigin(origins = "http://localhost:63342")
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping(value = "/add")
     public ResponseDTO addMyExam(@RequestBody MyExamDTO myExamDTO) {
         String result = myExamService.addMyExam(myExamDTO);
